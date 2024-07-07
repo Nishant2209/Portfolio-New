@@ -12,6 +12,7 @@ export const TextGenerateEffect = ({
   className?: string;
 }) => {
   const [scope, animate] = useAnimate();
+  const pathname = usePathname();
   let wordsArray = words.split(" ");
   useEffect(() => {
     console.log(wordsArray);
@@ -28,7 +29,6 @@ export const TextGenerateEffect = ({
   }, [scope.current]);
 
   const renderWords = () => {
-    const pathname = usePathname();
     return (
       <motion.div ref={scope}>
         {wordsArray.map((word, idx) => {
