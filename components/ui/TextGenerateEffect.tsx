@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { motion, stagger, useAnimate } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 export const TextGenerateEffect = ({
   words,
@@ -27,6 +28,7 @@ export const TextGenerateEffect = ({
   }, [scope.current]);
 
   const renderWords = () => {
+    const pathname = usePathname();
     return (
       <motion.div ref={scope}>
         {wordsArray.map((word, idx) => {
@@ -34,8 +36,14 @@ export const TextGenerateEffect = ({
             <motion.span
               key={word + idx}
               // change here if idx is greater than 3, change the text color to #CBACF9
-              className={` ${idx > 3 ? "text-purple" : "dark:text-white text-black"
-                } opacity-0`}
+              className={` ${
+                pathname === "/" && idx > 3
+                  ? "text-purple"
+                  : idx === wordsArray?.length - 1 ||
+                    idx === wordsArray.length - 2
+                  ? "text-purple"
+                  : "dark:text-white text-black"
+              } opacity-0`}
             >
               {word}{" "}
             </motion.span>
