@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./provider";
 import "react-vertical-timeline-component/style.min.css";
+import TransitionComponent from "@/components/ui/TransitionEffect";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,7 +30,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <TransitionComponent>{children}</TransitionComponent>
         </ThemeProvider>
       </body>
     </html>
