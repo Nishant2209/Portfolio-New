@@ -8,6 +8,7 @@ import {
   VerticalTimeline,
   VerticalTimelineElement,
 } from "react-vertical-timeline-component";
+import { TextGenerateEffect } from "./ui/TextGenerateEffect";
 
 const Experience = () => {
   const monthYear = (date: string | number | Date) =>
@@ -17,9 +18,10 @@ const Experience = () => {
     });
   return (
     <div className="pb-10 py-32 w-full">
-      <h1 className="heading">
-        My <span className="text-purple">work experience</span>
-      </h1>
+      <TextGenerateEffect
+        words="My Work Experience"
+        className="text-center text-[40px] md:text-5xl"
+      />
 
       <div className="flex flex-col">
         <VerticalTimeline animate>
