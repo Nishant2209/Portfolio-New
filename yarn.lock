@@ -808,12 +808,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sentry/types@npm:8.24.0":
+  version: 8.24.0
+  resolution: "@sentry/types@npm:8.24.0"
+  checksum: 10c0/3a9713ad71f240ef707245a460a01d821d9f0308bc215ca967d0427b6b86d24d22ffc48235f81c059aa835e40b0969eef5568f6e03ffaeff4b6c608156b70acb
+  languageName: node
+  linkType: hard
+
 "@sentry/utils@npm:7.118.0":
   version: 7.118.0
   resolution: "@sentry/utils@npm:7.118.0"
   dependencies:
     "@sentry/types": "npm:7.118.0"
   checksum: 10c0/64d5581344bc4435fc09b518a5a2b06605cf0df2aaf60b0f3c5f3b2b7f64bbc86bb1f967a5a52b40f3fbfe2898ed37e436b4aa51d018ff403d945a1232b1713d
+  languageName: node
+  linkType: hard
+
+"@sentry/utils@npm:^8.24.0":
+  version: 8.24.0
+  resolution: "@sentry/utils@npm:8.24.0"
+  dependencies:
+    "@sentry/types": "npm:8.24.0"
+  checksum: 10c0/5a9da3c5fbfac886a365fc48d467954a63c0d15bd049cc2a61d24d0146c8f6e8c88f1e57e2666384d834b440d6cc4abdc986d3dda57f7418a310e2032bdbecdc
   languageName: node
   linkType: hard
 
@@ -6043,6 +6059,7 @@ __metadata:
     "@react-three/drei": "npm:^9.105.4"
     "@react-three/fiber": "npm:^8.16.2"
     "@sentry/nextjs": "npm:^7.105.0"
+    "@sentry/utils": "npm:^8.24.0"
     "@tabler/icons-react": "npm:^3.8.0"
     "@tsparticles/engine": "npm:^3.5.0"
     "@tsparticles/react": "npm:^3.0.0"
