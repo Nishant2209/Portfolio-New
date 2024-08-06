@@ -1376,7 +1376,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prop-types@npm:*":
+"@types/prop-types@npm:*, @types/prop-types@npm:^15":
   version: 15.7.12
   resolution: "@types/prop-types@npm:15.7.12"
   checksum: 10c0/1babcc7db6a1177779f8fde0ccc78d64d459906e6ef69a4ed4dd6339c920c2e05b074ee5a92120fe4e9d9f1a01c952f843ebd550bee2332fc2ef81d1706878f8
@@ -6066,6 +6066,7 @@ __metadata:
     "@tsparticles/slim": "npm:^3.5.0"
     "@types/node": "npm:^20"
     "@types/nodemailer": "npm:^6.4.15"
+    "@types/prop-types": "npm:^15"
     "@types/react": "npm:^18"
     "@types/react-dom": "npm:^18"
     "@types/react-lottie": "npm:^1.2.10"
@@ -6083,6 +6084,7 @@ __metadata:
     next-themes: "npm:^0.3.0"
     nodemailer: "npm:^6.9.14"
     postcss: "npm:^8"
+    prop-types: "npm:^15.8.1"
     react: "npm:^18"
     react-dom: "npm:^18"
     react-icons: "npm:^5.0.1"
