@@ -88,6 +88,7 @@ const ContactUsPage = () => {
                 </Label>
                 <Input
                   id="firstname"
+                  name="firstname"
                   placeholder="Enter your First Name"
                   type="text"
                   value={formData.firstname}
@@ -103,6 +104,7 @@ const ContactUsPage = () => {
                 </Label>
                 <Input
                   id="lastname"
+                  name="lastname"
                   placeholder="Enter your Last Name"
                   type="text"
                   value={formData.lastname}
@@ -119,6 +121,7 @@ const ContactUsPage = () => {
               </Label>
               <Input
                 id="email"
+                name="email"
                 placeholder="Enter your email address"
                 type="email"
                 value={formData.email}
@@ -134,6 +137,7 @@ const ContactUsPage = () => {
               </Label>
               <Input
                 id="subject"
+                name="subject"
                 placeholder="Enter your Subject"
                 type="text"
                 value={formData.subject}
@@ -149,6 +153,7 @@ const ContactUsPage = () => {
               </Label>
               <TextArea
                 id="query"
+                name="query"
                 placeholder="Enter your query"
                 rows={8}
                 value={formData.query}
