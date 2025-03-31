@@ -12,11 +12,33 @@ export const handleSubmit = async (
 ) => {
   "use server";
 
-  const firstname = form.get("firstname")!.toString();
-  const lastname = form.get("lastname")!.toString();
-  const email = form.get("email")!.toString();
-  const subject = form.get("subject")!.toString();
-  const query = form.get("query")!.toString();
+  // Check if values exist before calling toString()
+  const firstnameValue = form.get("firstname");
+  const lastnameValue = form.get("lastname");
+  const emailValue = form.get("email");
+  const subjectValue = form.get("subject");
+  const queryValue = form.get("query");
+
+  // Validate if any required field is missing
+  if (
+    !firstnameValue ||
+    !lastnameValue ||
+    !emailValue ||
+    !subjectValue ||
+    !queryValue
+  ) {
+    return {
+      statusCode: 400,
+      statusMessage: "All fields are required. Please fill in all the fields.",
+    };
+  }
+
+  // Now it's safe to convert to string
+  const firstname = firstnameValue.toString();
+  const lastname = lastnameValue.toString();
+  const email = emailValue.toString();
+  const subject = subjectValue.toString();
+  const query = queryValue.toString();
 
   const mailer = createTransport({
     service: "gmail",
