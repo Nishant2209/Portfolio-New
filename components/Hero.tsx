@@ -1,11 +1,18 @@
+import dynamic from "next/dynamic";
 import { FaLocationArrow } from "react-icons/fa6";
+import { memo } from "react";
 
 import MagicButton from "./MagicButton";
 import { Spotlight } from "./ui/Spotlight";
 import { TextGenerateEffect } from "./ui/TextGenerateEffect";
-import { SparklesCore } from "./ui/Sparkles";
 
-const Hero = () => {
+// Lazy load heavy components
+const SparklesCore = dynamic(() => import("./ui/Sparkles").then(mod => ({ default: mod.SparklesCore })), {
+  ssr: false,
+  loading: () => <div className="w-full h-full bg-transparent" />
+});
+
+const Hero = memo(() => {
   return (
     <div className="pb-20 pt-36">
       {/**
@@ -93,6 +100,8 @@ const Hero = () => {
       </div>
     </div>
   );
-};
+});
+
+Hero.displayName = 'Hero';
 
 export default Hero;

@@ -4,8 +4,6 @@ import { navItems } from "@/data";
 
 import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
-import Clients from "@/components/Clients";
-import Experience from "@/components/Experience";
 import { FloatingNav } from "@/components/ui/FloatingNavbar";
 
 const Home = () => {

@@ -71,14 +71,6 @@ const ContactUsPage = () => {
           words="Eager to Connect? Contact Me"
           className="text-center text-[40px] md:text-5xl"
         />
-        <p></p>
-        <p className="text-neutral-500 max-w-lg mx-auto my-2 text-sm text-center relative z-10">
-          Welcome to MailJet, the best transactional email service on the web.
-          We provide reliable, scalable, and customizable email solutions for
-          your business. Whether you&apos;re sending order confirmations,
-          password reset emails, or promotional campaigns, MailJet has got you
-          covered.
-        </p>
         <div className="max-w-3xl w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black-200">
           <form className="my-8" action={formActions}>
             <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">

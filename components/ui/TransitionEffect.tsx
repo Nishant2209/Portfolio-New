@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
+import { memo } from "react";
 
 interface TransitionComponentProps {
   children: React.ReactNode;
@@ -23,7 +24,7 @@ const transitionVariants = {
   },
 };
 
-const TransitionComponent = ({ children }: TransitionComponentProps) => {
+const TransitionComponent = memo(({ children }: TransitionComponentProps) => {
   const pathname = usePathname();
 
   return (
@@ -69,6 +70,8 @@ const TransitionComponent = ({ children }: TransitionComponentProps) => {
       </motion.div>
     </AnimatePresence>
   );
-};
+});
+
+TransitionComponent.displayName = "TransitionComponent";
 
 export default TransitionComponent;
