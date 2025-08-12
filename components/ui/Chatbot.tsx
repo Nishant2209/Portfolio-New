@@ -17,7 +17,7 @@ const Chatbot = memo(() => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
-      text: "Hi! I&apos;m Nishant&apos;s AI assistant, powered by Google Gemini AI to help you learn about his professional background. I can provide detailed insights about his experience, skills, projects, and achievements. What would you like to know?",
+      text: "Hi! I am Nishant's AI assistant, powered by Google Gemini AI to help you learn about his professional background. I can provide detailed insights about his experience, skills, projects, and achievements. What would you like to know?",
       isUser: false,
       timestamp: new Date(),
     },
