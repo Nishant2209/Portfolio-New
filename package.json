@@ -4,10 +4,17 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build:dev": "NODE_ENV=development next build",
+    "build:prod": "NODE_ENV=production next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "vercel --prod"
+    "type-check": "tsc --noEmit",
+    "deploy": "vercel --prod",
+    "deploy:dev": "./scripts/deploy.sh dev",
+    "deploy:prod": "./scripts/deploy.sh prod",
+    "vercel:dev": "vercel --target development",
+    "vercel:preview": "vercel",
+    "vercel:prod": "vercel --prod"
   },
   "dependencies": {
     "@google/genai": "^1.13.0",
