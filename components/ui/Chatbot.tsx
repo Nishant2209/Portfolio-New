@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { generateAIResponse, testAIConnection } from "@/lib/ai/portfolio-ai";
 import { searchPortfolioData } from "@/lib/chatbot/portfolio-data";
 
@@ -41,7 +42,9 @@ const Chatbot = memo(() => {
       const isConnected = await testAIConnection();
       setAiEnabled(isConnected);
       if (!isConnected) {
-        console.warn('Gemini AI connection failed, falling back to keyword-based responses');
+        console.warn(
+          "Gemini AI connection failed, falling back to keyword-based responses"
+        );
       }
     };
     checkAI();
@@ -64,7 +67,7 @@ const Chatbot = memo(() => {
 
     try {
       let response: string;
-      
+
       if (aiEnabled) {
         // Use AI for intelligent responses
         response = await generateAIResponse(query);
@@ -82,7 +85,7 @@ const Chatbot = memo(() => {
 
       setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
-      console.error('Error generating response:', error);
+      console.error("Error generating response:", error);
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         text: "I apologize, but I'm experiencing some technical difficulties. Please try asking your question again, or feel free to reach out through the contact form.",
@@ -177,12 +180,21 @@ const Chatbot = memo(() => {
             {/* Header */}
             <div className="bg-gradient-to-r from-purple-500 to-cyan-500 p-4 text-white">
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                  <span className="text-sm font-bold">NS</span>
+                <div className="w-8 h-8 rounded-full flex items-center justify-center overflow-hidden">
+                  <Image
+                    src="/nks-logo.png"
+                    alt="Nishant's Logo"
+                    width={32}
+                    height={32}
+                    className="w-full h-full object-cover rounded-full"
+                    priority
+                  />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="font-semibold">Nishant&apos;s AI Assistant</h3>
+                    <h3 className="font-semibold">
+                      Nishant&apos;s AI Assistant
+                    </h3>
                     {aiEnabled && (
                       <div className="flex items-center gap-1">
                         <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
@@ -191,8 +203,8 @@ const Chatbot = memo(() => {
                     )}
                   </div>
                   <p className="text-xs opacity-90">
-                    {aiEnabled 
-                      ? "Powered by Gemini AI - Ask me anything about Nishant!" 
+                    {aiEnabled
+                      ? "Powered by Gemini AI - Ask me anything about Nishant!"
                       : "Ask me anything about Nishant!"}
                   </p>
                 </div>
@@ -217,7 +229,9 @@ const Chatbot = memo(() => {
                         : "bg-white/10 text-white"
                     }`}
                   >
-                    <p className="whitespace-pre-wrap text-xs">{message.text}</p>
+                    <p className="whitespace-pre-wrap text-xs">
+                      {message.text}
+                    </p>
                     <p className="text-xs opacity-70 mt-1">
                       {message.timestamp.toLocaleTimeString()}
                     </p>
@@ -296,7 +310,7 @@ const Chatbot = memo(() => {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                      d="M5 12h14M12 5l7 7-7 7"
                     />
                   </svg>
                 </motion.button>
