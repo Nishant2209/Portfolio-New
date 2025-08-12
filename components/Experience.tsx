@@ -1,16 +1,35 @@
 import { workExperience } from "@/data";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { memo } from "react";
 import { FaCircle } from "react-icons/fa6";
+import dynamic from "next/dynamic";
 
-import {
-  VerticalTimeline,
-  VerticalTimelineElement,
-} from "react-vertical-timeline-component";
 import { TextGenerateEffect } from "./ui/TextGenerateEffect";
 
-const Experience = () => {
+// Lazy load the timeline component
+const VerticalTimeline = dynamic(
+  () =>
+    import("react-vertical-timeline-component").then(
+      (mod) => mod.VerticalTimeline
+    ),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-64 animate-pulse bg-gray-200 rounded" />
+    ),
+  }
+);
+
+const VerticalTimelineElement = dynamic(
+  () =>
+    import("react-vertical-timeline-component").then(
+      (mod) => mod.VerticalTimelineElement
+    ),
+  { ssr: false }
+);
+
+const Experience = memo(() => {
   const monthYear = (date: string | number | Date) =>
     new Date(date).toLocaleDateString("en-US", {
       month: "short",
@@ -37,7 +56,7 @@ const Experience = () => {
               visible={true}
               // iconStyle={{ background: experience.imageBackground }}
               iconStyle={{
-                background: index % 2 !== 0 ? "#E6DEDD" : "#1D1836",
+                background: index % 2 == 0 ? "#E6DEDD" : "#1D1836",
               }}
               icon={
                 <Link
@@ -79,7 +98,7 @@ const Experience = () => {
                       <span>
                         <FaCircle
                           fontSize={5}
-                          className="mr-3 inline-block text-secondary"
+                          className="mr-3 inline-block text-primary"
                         />
                         {description}
                       </span>
@@ -93,6 +112,8 @@ const Experience = () => {
       </div>
     </div>
   );
-};
+});
+
+Experience.displayName = "Experience";
 
 export default Experience;
