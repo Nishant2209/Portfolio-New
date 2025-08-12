@@ -2,6 +2,19 @@
 
 import { captureException } from "@sentry/nextjs";
 import { createTransport } from "nodemailer";
+import { ContactFormSchema } from "@/validation";
+
+// Simple HTML escaping function for server-side
+function escapeHtml(text: string): string {
+  const map: { [key: string]: string } = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;",
+  };
+  return text.replace(/[&<>"']/g, (m) => map[m]);
+}
 
 export const handleSubmit = async (
   prevState: {
@@ -33,12 +46,26 @@ export const handleSubmit = async (
     };
   }
 
-  // Now it's safe to convert to string
-  const firstname = firstnameValue.toString();
-  const lastname = lastnameValue.toString();
-  const email = emailValue.toString();
-  const subject = subjectValue.toString();
-  const query = queryValue.toString();
+  // Convert to string and validate with Zod schema
+  const formData = {
+    firstname: firstnameValue.toString(),
+    lastname: lastnameValue.toString(),
+    email: emailValue.toString(),
+    subject: subjectValue.toString(),
+    query: queryValue.toString(),
+  };
+
+  // Server-side validation with Zod
+  const validationResult = ContactFormSchema.safeParse(formData);
+  if (!validationResult.success) {
+    return {
+      statusCode: 400,
+      statusMessage:
+        "Invalid input data. Please check your entries and try again.",
+    };
+  }
+
+  const { firstname, lastname, email, subject, query } = validationResult.data;
 
   const mailer = createTransport({
     service: "gmail",
@@ -48,11 +75,13 @@ export const handleSubmit = async (
     },
   });
 
-  if (prevState.statusCode === 200 || prevState.statusCode === 400) {
+  // Implement proper rate limiting logic
+  // Note: In production, use Redis or database for proper session tracking
+  if (prevState.statusCode === 200) {
     return {
-      statusCode: 400,
+      statusCode: 429,
       statusMessage:
-        "You have already submitted a message. Please wait for a response. Thank you!",
+        "You have already submitted a message successfully. Please wait for a response before submitting again.",
     };
   }
 
@@ -62,8 +91,12 @@ export const handleSubmit = async (
       replyTo: email,
       sender: email,
       to: "nishant220902@gmail.com",
-      subject: `${firstname} ${lastname} (${email}) sent you a message`,
-      html: `<b>Subject:</b> ${subject}<br /><br /><b>Message:</b> ${query}`,
+      subject: `${escapeHtml(firstname)} ${escapeHtml(
+        lastname
+      )} (${email}) sent you a message`,
+      html: `<b>Subject:</b> ${escapeHtml(
+        subject
+      )}<br /><br /><b>Message:</b> ${escapeHtml(query)}`,
     });
 
     return {
