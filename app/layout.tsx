@@ -1,38 +1,32 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import dynamic from "next/dynamic";
 
 import "./globals.css";
 import { ThemeProvider } from "./provider";
 import TransitionComponent from "@/components/ui/TransitionEffect";
+import ClientChatbot from "@/components/ClientChatbot";
 
-// Dynamically import Chatbot for better performance
-const Chatbot = dynamic(() => import("@/components/ui/Chatbot"), {
-  ssr: false,
-  loading: () => null
-});
-
-const inter = Inter({ 
+const inter = Inter({
   subsets: ["latin"],
-  display: 'swap',
+  display: "swap",
   preload: true,
-  variable: '--font-inter'
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
   title: "Nishant's Portfolio",
   description: "Modern & Minimal Portfolio",
-  manifest: '/manifest.json',
+  manifest: "/manifest.json",
   icons: {
-    icon: '/nks-logo.png',
-    apple: '/nks-logo.png',
+    icon: "/nks-logo.png",
+    apple: "/nks-logo.png",
   },
 };
 
 export const viewport = {
-  width: 'device-width',
+  width: "device-width",
   initialScale: 1,
-  themeColor: '#000319',
+  themeColor: "#000319",
 };
 
 export default function RootLayout({
@@ -53,7 +47,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <TransitionComponent>{children}</TransitionComponent>
-          <Chatbot />
+          <ClientChatbot />
         </ThemeProvider>
       </body>
     </html>
