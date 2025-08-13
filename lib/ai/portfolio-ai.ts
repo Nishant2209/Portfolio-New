@@ -19,6 +19,10 @@ const ai = new GoogleGenAI({
 // Get environment-specific configuration
 const config = getConfig();
 
+// Rate limiting for API calls
+let lastApiCall = 0;
+const API_RATE_LIMIT_MS = 2000; // 2 seconds between calls
+
 // Model selection based on environment
 const getModel = () => {
   return config.aiModel;
@@ -174,9 +178,17 @@ export async function generateAIResponse(
   userQuestion: string
 ): Promise<string> {
   try {
+    // Rate limiting check
+    const now = Date.now();
+    if (now - lastApiCall < API_RATE_LIMIT_MS) {
+      console.log("Rate limit applied, using fallback response");
+      return getFallbackResponse(userQuestion);
+    }
+
     const prompt = createPortfolioPrompt(userQuestion);
 
     // Generate content using the new API - Using FREE Gemini model
+    lastApiCall = now; // Update last call timestamp
     const response = await ai.models.generateContent({
       model: getModel(),
       contents: prompt,
@@ -241,19 +253,21 @@ function getFallbackResponse(question: string): string {
   return `I'm here to help you learn about Nishant's professional background! I can answer questions about his experience, skills, projects, achievements, and how to get in touch. What would you like to know?`;
 }
 
-// Test AI connection
+// Test AI connection - now just checks if API key exists
 export async function testAIConnection(): Promise<boolean> {
   try {
-    const response = await ai.models.generateContent({
-      model: getModel(),
-      contents: "Hello, please respond with 'AI connection successful'",
-      config: {
-        maxOutputTokens: 20,
-      },
-    });
+    // Just check if API key is available without making actual API call
+    const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+    const hasApiKey =
+      apiKey && apiKey.trim() !== "" && !apiKey.includes("your_");
 
-    const text = response.text;
-    return text?.includes("successful") || false;
+    if (!hasApiKey) {
+      console.warn("Gemini API key not configured properly");
+      return false;
+    }
+
+    // Return true if API key exists - actual connection will be tested when user sends first message
+    return true;
   } catch (error) {
     console.error("Gemini AI Connection Test Failed:", error);
     return false;

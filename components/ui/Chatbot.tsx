@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect, useCallback, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { generateAIResponse, testAIConnection } from "@/lib/ai/portfolio-ai";
 import { searchPortfolioData } from "@/lib/chatbot/portfolio-data";
 
@@ -14,7 +15,9 @@ interface Message {
 }
 
 const Chatbot = memo(() => {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
@@ -49,6 +52,29 @@ const Chatbot = memo(() => {
     };
     checkAI();
   }, []);
+
+  // Show tooltip only on home page
+  useEffect(() => {
+    console.log(pathname);
+    if (pathname === "/" && !isOpen) {
+      // Show tooltip after a short delay for better UX
+      const showTimer = setTimeout(() => {
+        setShowTooltip(true);
+      }, 1000);
+
+      // Hide tooltip after 5 seconds
+      const hideTimer = setTimeout(() => {
+        setShowTooltip(false);
+      }, 6000); // 1s delay + 5s display
+
+      return () => {
+        clearTimeout(showTimer);
+        clearTimeout(hideTimer);
+      };
+    } else {
+      setShowTooltip(false);
+    }
+  }, [pathname, isOpen]);
 
   const handleSendMessage = useCallback(async () => {
     if (!inputValue.trim()) return;
@@ -120,11 +146,13 @@ const Chatbot = memo(() => {
         <motion.button
           onClick={() => setIsOpen(!isOpen)}
           className="relative bg-gradient-to-r from-purple-500 to-cyan-500 text-white p-4 rounded-full shadow-2xl hover:shadow-purple-500/25 transition-all duration-300"
+          onMouseEnter={() => {!isOpen && setShowTooltip(true)}}
+          onMouseLeave={() => setShowTooltip(false)}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
           <motion.div
-            animate={{ rotate: isOpen ? 45 : 0 }}
+            animate={{ rotate: isOpen ? 90 : 0 }}
             transition={{ duration: 0.2 }}
           >
             {isOpen ? (
@@ -165,6 +193,37 @@ const Chatbot = memo(() => {
             transition={{ repeat: Infinity, duration: 2 }}
           />
         </motion.button>
+
+        {/* Tooltip for Home Page */}
+        <AnimatePresence>
+          {showTooltip && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, x: 10 }}
+              animate={{ opacity: 1, scale: 1, x: 0 }}
+              exit={{ opacity: 0, scale: 0.8, x: 10 }}
+              transition={{ duration: 0.3 }}
+              className="absolute -left-[16rem] -top-[100%] transform -translate-x-full -translate-y-1/2"
+            >
+              <div className="relative bg-black-100 border border-white/[0.2] rounded-lg p-3 shadow-2xl backdrop-blur-md">
+                <p className="text-white text-sm whitespace-nowrap font-medium">
+                  Ask anything about Nishant to the AI chatbot
+                </p>
+
+                {/* Pointer Arrow */}
+                <div className="absolute right-0 top-1/2 transform translate-x-full -translate-y-1/2">
+                  <div className="w-0 h-0 border-l-8 border-l-black-100 border-t-4 border-t-transparent border-b-4 border-b-transparent"></div>
+                </div>
+
+                {/* Pulsing animation */}
+                <motion.div
+                  className="absolute inset-0 bg-purple-500/20 rounded-lg"
+                  animate={{ opacity: [0.5, 0.8, 0.5] }}
+                  transition={{ repeat: Infinity, duration: 2 }}
+                />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
 
       {/* Chat Window */}
