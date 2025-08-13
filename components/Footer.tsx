@@ -20,7 +20,7 @@ const Footer = memo(() => {
       </div>
 
       <div className="flex flex-col items-center">
-        <h1 className="heading lg:max-w-[45vw]">
+        <h1 className="heading lg:max-w-[45vw] z-50">
           Ready to take <span className="text-purple">your</span> digital
           presence to the next level?
         </h1>
@@ -38,7 +38,7 @@ const Footer = memo(() => {
       </div>
       <div className="flex mt-16 px-5 md:flex-row flex-col justify-between items-center">
         <p className="md:text-base text-sm md:font-normal font-light">
-          Copyright © 2024 Nishant Kumar Singh
+          Copyright © 2025 Nishant Kumar Singh
         </p>
 
         <div className="flex items-center md:gap-3 gap-6">
