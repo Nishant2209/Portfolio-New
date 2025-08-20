@@ -8,9 +8,12 @@ import ClientChatbot from "@/components/ClientChatbot";
 
 const inter = Inter({
   subsets: ["latin"],
-  display: "swap",
-  preload: true,
+  display: "optional", // Use optional to avoid blocking render
+  preload: false, // Disable preload to avoid timeout issues
   variable: "--font-inter",
+  fallback: ["system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "sans-serif"],
+  adjustFontFallback: true,
+  weight: ["300", "400", "500", "600", "700"], // Specify only needed weights
 });
 
 export const metadata: Metadata = {

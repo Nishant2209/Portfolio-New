@@ -8,10 +8,10 @@ import { TextGenerateEffect } from "./ui/TextGenerateEffect";
 
 const Clients = () => {
   return (
-    <section id="testimonials" className="pb-20 pt-32">
+    <section id="testimonials" className="pb-20 pt-16 sm:pt-24 md:pt-32">
       <TextGenerateEffect
         words="Kind Words From My Colleagues/Satisfied Clients"
-        className="text-center text-[40px] md:text-5xl"
+        className="text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl px-4"
       />
 
       <div className="flex flex-col items-center max-lg:mt-10">

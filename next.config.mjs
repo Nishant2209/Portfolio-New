@@ -17,6 +17,9 @@ const nextConfig = {
     webVitalsAttribution: ["CLS", "LCP"],
   },
 
+  // Font optimization
+  optimizeFonts: true,
+
   // Bundle optimization
   webpack: (config, { isServer, dev }) => {
     // Bundle analyzer in development

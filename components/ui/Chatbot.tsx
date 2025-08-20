@@ -138,7 +138,7 @@ const Chatbot = memo(() => {
     <>
       {/* Floating Chat Button */}
       <motion.div
-        className="fixed bottom-6 right-6 z-50"
+        className="fixed bottom-6 right-6 z-[100]"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 2, duration: 0.3 }}
@@ -234,7 +234,7 @@ const Chatbot = memo(() => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.8 }}
             transition={{ duration: 0.3 }}
-            className="fixed bottom-24 right-6 w-96 h-[28rem] flex flex-col bg-black-100 border border-white/[0.2] rounded-lg shadow-2xl z-40 overflow-hidden"
+            className="fixed bottom-24 right-6 w-96 h-[28rem] flex flex-col bg-black-100 border border-white/[0.2] rounded-lg shadow-2xl z-[99] overflow-hidden"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-purple-500 to-cyan-500 p-4 text-white">

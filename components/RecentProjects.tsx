@@ -15,12 +15,12 @@ const RecentProjects = () => {
   const router = useRouter();
 
   return (
-    <div className="pb-10 pt-32">
+    <div className="pb-10 pt-16 sm:pt-20 md:pt-24 lg:pt-32 px-4 sm:px-6 lg:px-8">
       <Meteors number={30} />
       <h1 className="heading">
         A small selection of <span className="text-purple">my projects</span>
       </h1>
-      <div className="flex flex-wrap items-center justify-center p-4 gap-16 mt-10">
+      <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-16 mt-6 sm:mt-8 md:mt-10">
         {projects.map((item) => (
           // <div
           //   className="lg:min-h-[32.5rem] h-[25rem] flex items-center justify-center sm:w-96 w-[80vw]"
@@ -82,18 +82,18 @@ const RecentProjects = () => {
           //     </div>
           //   </PinContainer>
           // </div>
-          <CardContainer className="inter-var" key={item.id}>
-            <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-[#04071d] dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border  ">
+          <CardContainer className="inter-var w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl" key={item.id}>
+            <CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-[#04071d] dark:border-white/[0.2] border-black/[0.1] w-full h-auto rounded-xl p-4 sm:p-6 border">
               <CardItem
                 translateZ="50"
-                className="text-xl font-bold text-neutral-600 dark:text-white"
+                className="text-lg sm:text-xl md:text-2xl font-bold text-neutral-600 dark:text-white"
               >
                 {item.title}
               </CardItem>
               <CardItem
                 as="p"
                 translateZ="60"
-                className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
+                className="text-neutral-500 text-sm sm:text-base max-w-full mt-2 dark:text-neutral-300 line-clamp-3"
               >
                 {item.des}
               </CardItem>
@@ -106,21 +106,21 @@ const RecentProjects = () => {
                   alt="thumbnail"
                 />
               </CardItem>
-              <div className="flex justify-between items-center mt-10">
+              <div className="flex flex-col sm:flex-row justify-between items-center mt-6 sm:mt-8 md:mt-10 gap-4">
                 <CardItem
                   translateZ={20}
                   target="__blank"
-                  className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white flex"
+                  className="flex"
                 >
                   {item.iconLists.map((icon, index) => (
                     <div
                       key={index}
-                      className="border border-white/[.2] rounded-full bg-black lg:w-10 w-8 flex justify-center items-center"
+                      className="border border-white/[.2] rounded-full bg-black w-8 h-8 sm:w-10 sm:h-10 flex justify-center items-center"
                       style={{
-                        transform: `translateX(-${5 * index + 2}px)`,
+                        transform: `translateX(-${3 * index + 2}px)`,
                       }}
                     >
-                      <img src={icon} alt="icon5" className="p-2" />
+                      <img src={icon} alt="icon5" className="p-1.5 sm:p-2" />
                     </div>
                   ))}
                 </CardItem>
@@ -128,7 +128,7 @@ const RecentProjects = () => {
                   translateZ={20}
                   as="button"
                   onClick={() => window.open(`${item.link}`)}
-                  className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
+                  className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs sm:text-sm font-bold hover:opacity-80 transition-opacity w-full sm:w-auto"
                 >
                   Check Live Site
                 </CardItem>
